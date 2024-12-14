@@ -52,8 +52,8 @@ public class MovPlayer : MonoBehaviour
                 // transform.position += moveDirection * moveSpeed * Time.deltaTime;
 
 
-                // //Animação de andando
-                // ani.SetFloat("MoveVertical", Mathf.Clamp(vertical + horizontal, -1, 1));
+                //Animação de andando
+                ani.SetFloat("MoveVertical", Mathf.Clamp(Mathf.Abs(vertical) + Mathf.Abs(horizontal), -1, 1));
                 // ani.SetBool("punch", false);
             }
         }
