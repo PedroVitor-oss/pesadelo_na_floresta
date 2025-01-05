@@ -16,7 +16,7 @@ public class MonstroControle : MonoBehaviour
          Vector3 moveDirection = (player.transform.position - transform.position).normalized;
             // moveDirection.y = 0;
 
-            // Faz o player olhar na direção do inimigo
+            // Faz o inimigo olhar na direção do player
             Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 10.0f * Time.deltaTime);
 
@@ -29,7 +29,7 @@ public class MonstroControle : MonoBehaviour
                 followPlayer = false;
             }
 
-            if(followPlayer)
+            if(followPlayer && Vector3.Distance(player.position,transform.position)>0.5f)
             {
                 transform.Translate(moveDirection * speed * Time.deltaTime);
             }

@@ -6,6 +6,8 @@ using UnityEngine;
 public class MovPlayer : MonoBehaviour
 {[Header("Move")]
     public float moveSpeed = 5.0f;
+    private float speed = 0;
+    public float estamina = 5;
     public float autoRotationSpeed = 10.0f;
     private Rigidbody rig;
     float horizontal;
@@ -18,6 +20,7 @@ public class MovPlayer : MonoBehaviour
     void Start()
     {
         rig = GetComponent<Rigidbody>();
+        speed = moveSpeed;
     }
 
     private void Update()
@@ -53,8 +56,17 @@ public class MovPlayer : MonoBehaviour
 
 
                 //Animação de andando
+                
                 ani.SetFloat("MoveVertical", Mathf.Clamp(Mathf.Abs(vertical) + Mathf.Abs(horizontal), -1, 1));
-                // ani.SetBool("punch", false);
+                 ani.SetBool("run",estamina > 0 && Input.GetKey(KeyCode.LeftShift));
+                 if(Input.GetKey(KeyCode.LeftShift))
+                 {
+                    if(estamina>0) moveSpeed = speed * 1.5f;// + 50%
+                    estamina -= Time.deltaTime;
+                 }else{
+                    moveSpeed = speed;
+                    estamina+=Time.deltaTime;
+                 }
             }
         }
         
@@ -71,13 +83,13 @@ public class MovPlayer : MonoBehaviour
 
     }
 
-         void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject.layer == 6)
-        {
-            Destroy(gameObject);
-        }
-    }
+// '' void OnCollisionEnter(Collision collision)
+//     {
+//         if(collision.gameObject.layer == 6)
+//         {
+//             Destroy(gameObject);
+//         }
+//     }
  
     
 }
